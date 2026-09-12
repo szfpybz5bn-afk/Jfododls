@@ -150,3 +150,24 @@ for i, (pid, text) in enumerate(prompts, start=1):
     time.sleep(1)
 
 print("Listo, todas las imagenes procesadas.")
+.github/workflows/generate.yml
+name: Generar fotos 5 gobernantes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python generate_images.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fotos-5-gobernantes
+          path: fotos/
+          retention-days: 7
